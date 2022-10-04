@@ -26,7 +26,7 @@ const newtonsMethod = (
     }
 }
 
-export const algoAI = (
+export const Solver = (
     grid: CellType[], 
     action: ActionType, 
     mineNum: number,
@@ -72,7 +72,7 @@ export const algoAI = (
             return diffPartiel + (newGrid[index].prob - grid[index].prob) ** 2
         }, 0) > evolution ** 2
     ) {
-        return algoAI(newGrid, action, mineNum);
+        return Solver(newGrid, action, mineNum);
     }
 
     const digIndex = newGrid.reduce((lowestProbIndex, cell) => {

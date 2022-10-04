@@ -1,14 +1,21 @@
 import { createStyles } from "@mantine/core";
-import { ActionType } from "../type/actionType";
 import { CellType } from "../type/cellType";
+import { MouseEventHandler } from 'react';
+import { useDispatch } from "react-redux";
+import { clearHighlight, dig, flag, highlightNeighbours } from "../redux/gameState/gameStateStore";
 
-export const CellDiv = (props: {
-  cell: CellType
-  action: ActionType
-}) => { 
-  const { classes } = useStyles();
+interface propsType {
+  renderGrid: () => void,
+  cell: CellType,
+}
   
-  const cell = props.cell;
+export const Cell = ({
+  renderGrid,
+  cell,
+}: propsType) => {
+  
+  const { classes } = useStyles();
+  const dispatch = useDispatch();
 
   const color = (
     !cell.isShown ? "#DCAB6B" : 
@@ -57,32 +64,32 @@ export const CellDiv = (props: {
 
   const leftClick = () => {
     if (cell.isFlag) return;
-    props.action.dig(cell.index);
+    dispatch(dig({index: cell.index, neighbours: false}));
   };
-
-  const rightClick = () => {
-    console.log(cell.isShown);
-
-    // if (cell.isShown) return false;
-    // props.action.flag(cell.index);
+  
+  const rightClick: MouseEventHandler<HTMLDivElement> = (event) => {
+    event.preventDefault();
+    if (cell.isShown) return false;
+    dispatch(flag(cell.index));
+    renderGrid();
     return false;
   };
 
-  // const mouseHover = () => {
-  //   props.action.highlightNeighbours(cell.index);
-  // };
+  const mouseHover = () => {
+    dispatch(highlightNeighbours(cell.index));
+  };
 
-  // const mouseOut = () => {
-  //   props.action.clearHighlight();
-  // };
+  const mouseOut = () => {
+    dispatch(clearHighlight());
+  };
 
   return (
     <div 
       className={classes.cell} 
       onClick={leftClick} 
       onContextMenu={rightClick} 
-      // onMouseOver={mouseHover} 
-      // onMouseOut={mouseOut}
+      onMouseOver={mouseHover} 
+      onMouseOut={mouseOut}
       style={{backgroundColor: color, filter: `brightness(${brightness}%)`, color: fontColor, fontSize: `${cell.showProb && !cell.isShown? Math.floor(cell.fontSize/2) : cell.fontSize}vmin`}}>
         {image}
     </div>

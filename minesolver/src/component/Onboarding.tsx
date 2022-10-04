@@ -1,16 +1,16 @@
 import { createStyles } from '@mantine/core';
 import { KeyboardEvent } from 'react';
-import { Grid } from './Grid';
-import { useDispatch } from "react-redux";
 import { restart } from '../redux/gameState/gameStateStore';
+import { useDispatch } from "react-redux";
 
 interface propsAppInitType {
   renderGrid: () => void,
 }
 
-export const App = ({
+export const Onboarding = ({
   renderGrid,
 }: propsAppInitType) => {
+
   const { classes } = useStyles();
   const dispatch = useDispatch();
 
@@ -28,7 +28,10 @@ export const App = ({
       onKeyDown={handleKeyPress}
       tabIndex={0}
     >
-      <Grid renderGrid={renderGrid}/>
+      {/* Press Space to Open/Close this Menu <br /> */}
+      <span>
+        Press the <strong>S</strong> key to Start / Restart
+      </span>
     </div >
   )
 }

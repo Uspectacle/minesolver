@@ -1,5 +1,5 @@
 export interface parametersType {
     sizeGrid: number;
-    useAI: boolean,
+    enableSolver: boolean,
     mineNum: number;
 }

@@ -2,35 +2,30 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import { CellType } from './type/cellType';
 import { App } from './component/App';
-import { AppInit } from './component/AppInit';
+import { Onboarding } from './component/Onboarding';
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const sizeGrid = 2;
-const mineNum = 1;
-const useAI = false;
-
-const renderGrid = (grid: CellType[]) => {
+const renderGrid = () => {
   root.render(
     <React.StrictMode>
-      <App 
-        useAI={useAI} 
-        grid={grid} 
-        sizeGrid={sizeGrid} 
-        mineNum={mineNum} 
-        renderGrid={renderGrid} 
-      />
+      <Provider store={store}>
+        <App renderGrid={renderGrid}/>
+      </Provider>
     </React.StrictMode>
   )
 };
 
 root.render(
   <React.StrictMode>
-    <AppInit renderGrid={renderGrid}/>
+    <Provider store={store}>
+      <Onboarding renderGrid={renderGrid}/>
+    </Provider>
   </React.StrictMode>
 )
 
