@@ -112,12 +112,13 @@ const flag = (
   state: GameStateState,
   value: { payload: number; type: string; },
 ) => {
-  const index = value.payload;
 
   if (state.isOver) {
     restart(state);
     return;
   }
+
+  const index = value.payload;
 
   state.grid[index].isFlag = !state.grid[index].isFlag;
 };
@@ -132,13 +133,13 @@ const dig = (
     type: string; 
   },
 ) => {
-  if (state.isOver) {
+  const {index, neighbours} = value.payload;
+
+  if (state.isOver && !neighbours) {
       restart(state);
       return;
   }
   
-  const {index, neighbours} = value.payload;
-
   if (state.grid[index].isFlag) return;
 
   if (state.grid[index].isShown) {
@@ -194,11 +195,12 @@ const dig = (
     return;
   }
 
-  if (!state.grid.some((cell) => {
-    return (!cell.isShown && cell.isMine) || (cell.isShown && !cell.isMine)
+
+  if (state.grid.every((cell) => {
+    return (cell.isShown && !cell.isMine) || (!cell.isShown && cell.isMine)
   })) {
     state.grid.forEach((cell) => {
-      if (!cell.isFlag || cell.isMine) cell.isFlag = true;
+      if (!cell.isFlag && cell.isMine) cell.isFlag = true;
     })
     gameOver(state); // WIN
     return;

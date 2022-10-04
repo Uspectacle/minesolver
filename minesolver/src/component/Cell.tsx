@@ -65,6 +65,7 @@ export const Cell = ({
   const leftClick = () => {
     if (cell.isFlag) return;
     dispatch(dig({index: cell.index, neighbours: false}));
+    renderGrid();
   };
   
   const rightClick: MouseEventHandler<HTMLDivElement> = (event) => {
@@ -77,10 +78,12 @@ export const Cell = ({
 
   const mouseHover = () => {
     dispatch(highlightNeighbours(cell.index));
+    renderGrid();
   };
 
   const mouseOut = () => {
     dispatch(clearHighlight());
+    renderGrid();
   };
 
   return (
