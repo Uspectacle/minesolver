@@ -1,6 +1,5 @@
-import { act } from "react-dom/test-utils";
-import { ActionType } from "../type/actionType"
-import { CellType } from "../type/cellType"
+import { ActionType } from "./type/actionType"
+import { CellType } from "./type/cellType"
 
 const evolution = 0.01;
 
@@ -19,7 +18,7 @@ const newtonsMethod = (
 ): number => {
     if (Math.abs(prevGuess - guess) > precision && numguess > 0) {
         const d = derivative(f)(guess);
-        if (d == 0) return 1;
+        if (d === 0) return 1;
         const approx = guess - (f(guess) / derivative(f)(guess));
         return newtonsMethod(f, approx > 0 ? approx < 1000 ? approx : 1000 : 0, guess, numguess-1);
     } else {
@@ -32,9 +31,6 @@ export const algoAI = (
     action: ActionType, 
     mineNum: number,
 ): CellType[] => {
-
-    console.log("algoAI");
-
     var newGrid = [...grid];
 
     grid.forEach((cell) => {

@@ -1,7 +1,6 @@
 import { createStyles } from "@mantine/core";
-import React, { useEffect, useState } from "react";
-import { ActionType } from "../type/actionType";
-import { CellType } from "../type/cellType";
+import { ActionType } from "./type/actionType";
+import { CellType } from "./type/cellType";
 
 export const CellDiv = (props: {
   cell: CellType
@@ -14,7 +13,7 @@ export const CellDiv = (props: {
   const color = (
     !cell.isShown ? "#DCAB6B" : 
     cell.isMine ? "#6e0d25" : 
-    cell.num == 0 ? "#6A381F" :
+    cell.num === 0 ? "#6A381F" :
     [ "#6A381F",
       "#6E3E20", 
       "#704121", 
@@ -44,7 +43,7 @@ export const CellDiv = (props: {
   const brightness = (
     !cell.highlight ? 100 : 
     !cell.isShown ? 90 : 
-    cell.num == 0 ? 100 : 
+    cell.num === 0 ? 100 : 
     95
   );
 
@@ -62,26 +61,28 @@ export const CellDiv = (props: {
   };
 
   const rightClick = () => {
-    if (cell.isShown) return false;
-    props.action.flag(cell.index);
+    console.log(cell.isShown);
+
+    // if (cell.isShown) return false;
+    // props.action.flag(cell.index);
     return false;
   };
 
-  const mouseHover = () => {
-    props.action.highlightNeighbours(cell.index);
-  };
+  // const mouseHover = () => {
+  //   props.action.highlightNeighbours(cell.index);
+  // };
 
-  const mouseOut = () => {
-    props.action.clearHighlight();
-  };
+  // const mouseOut = () => {
+  //   props.action.clearHighlight();
+  // };
 
   return (
     <div 
       className={classes.cell} 
       onClick={leftClick} 
       onContextMenu={rightClick} 
-      onMouseOver={mouseHover} 
-      onMouseOut={mouseOut}
+      // onMouseOver={mouseHover} 
+      // onMouseOut={mouseOut}
       style={{backgroundColor: color, filter: `brightness(${brightness}%)`, color: fontColor, fontSize: `${cell.showProb && !cell.isShown? Math.floor(cell.fontSize/2) : cell.fontSize}vmin`}}>
         {image}
     </div>
