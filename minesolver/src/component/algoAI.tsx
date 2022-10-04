@@ -1,5 +1,5 @@
-import { ActionType } from "./type/actionType"
-import { CellType } from "./type/cellType"
+import { ActionType } from "../type/actionType"
+import { CellType } from "../type/cellType"
 
 const evolution = 0.01;
 

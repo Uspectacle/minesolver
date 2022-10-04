@@ -1,6 +1,6 @@
 import { createStyles } from "@mantine/core";
-import { ActionType } from "./type/actionType";
-import { CellType } from "./type/cellType";
+import { ActionType } from "../type/actionType";
+import { CellType } from "../type/cellType";
 
 export const CellDiv = (props: {
   cell: CellType
