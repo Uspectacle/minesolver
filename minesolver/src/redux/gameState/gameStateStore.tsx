@@ -15,8 +15,8 @@ const initialState = {
   grid: [],
   isMine: false,
   isOver: false,
-  sizeGrid: 5,
-  mineNum: 3,
+  sizeGrid: 10,
+  mineNum: 15/100,
   enableSolver: false,
 };
 

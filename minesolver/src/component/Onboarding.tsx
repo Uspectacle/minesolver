@@ -68,6 +68,6 @@ const useStyles = createStyles((theme) => ({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    width: "80vh"
+    width: "80vw"
   },
 }));
