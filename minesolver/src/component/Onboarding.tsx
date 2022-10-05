@@ -1,7 +1,8 @@
 import { createStyles } from '@mantine/core';
 import { KeyboardEvent } from 'react';
-import { restart } from '../redux/gameState/gameStateStore';
+import { restart, setEnableSolver, setMineNum, setSizeGrid } from '../redux/gameState/gameStateStore';
 import { useDispatch } from "react-redux";
+import { OnboardingButton } from './OnboardingButton';
 
 interface propsAppInitType {
   renderGrid: () => void,
@@ -28,10 +29,20 @@ export const Onboarding = ({
       onKeyDown={handleKeyPress}
       tabIndex={0}
     >
-      {/* Press Space to Open/Close this Menu <br /> */}
-      <span>
-        Press the <strong>S</strong> key to Start / Restart
-      </span>
+      <div className={classes.container}>
+        <OnboardingButton size="10vmin" handleClick={() => dispatch(setSizeGrid(5))}/>
+        <OnboardingButton handleClick={() => dispatch(setSizeGrid(10))}/>
+        <OnboardingButton size="30vmin" handleClick={() => dispatch(setSizeGrid(15))}/>
+      </div>
+      <div className={classes.container}>
+        <OnboardingButton fontSize="3vmin" content="💣" handleClick={() => dispatch(setMineNum(10/100))}/>
+        <OnboardingButton fontSize="8vmin" content="💣" handleClick={() => dispatch(setMineNum(15/100))}/>
+        <OnboardingButton fontSize="13vmin" content="💣" handleClick={() => dispatch(setMineNum(20/100))}/>
+      </div>
+      <div className={classes.container}>
+        <OnboardingButton content="🤖"handleClick={() => dispatch(setEnableSolver(false))}/>
+        <OnboardingButton content="👌"handleClick={() => {dispatch(restart()); renderGrid();}}/>
+      </div>
     </div >
   )
 }
@@ -51,5 +62,12 @@ const useStyles = createStyles((theme) => ({
       color: '#b38c78',
       fontSize: "30px",
     }
+  },
+  container: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    width: "80vh"
   },
 }));

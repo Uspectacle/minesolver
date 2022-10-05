@@ -11,7 +11,7 @@ const initCell = (
   column: index % sizeGrid,
   index,
   isMine: false,
-  prob: Math.min(mineNum, sizeGrid*sizeGrid-1)/(sizeGrid*sizeGrid),
+  prob: Math.min(Math.floor(mineNum*sizeGrid*sizeGrid), sizeGrid*sizeGrid-1)/(sizeGrid*sizeGrid),
   num: 0,
   isShown: false,
   isFlag: false,
@@ -177,7 +177,7 @@ const dig = (
 
     shuffle(indexList);
 
-    indexList.slice(0, Math.min(state.mineNum, state.sizeGrid*state.sizeGrid-1))
+    indexList.slice(0, Math.min(Math.floor(state.mineNum*state.sizeGrid*state.sizeGrid), state.sizeGrid*state.sizeGrid-1))
       .forEach((otherIndex) => {state.grid[otherIndex].isMine = true;})
 
     state.grid = state.grid.map((cell) => {

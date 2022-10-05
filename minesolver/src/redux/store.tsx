@@ -10,7 +10,6 @@ import {
   REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import settingsStore from "./settings/settingsStore";
 import gameStateStore from "./gameState/gameStateStore";
 
 const persistConfig = {
@@ -18,7 +17,7 @@ const persistConfig = {
   storage,
 };
 
-const reducers = combineReducers({ settingsStore, gameStateStore });
+const reducers = combineReducers({ gameStateStore });
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = configureStore({
