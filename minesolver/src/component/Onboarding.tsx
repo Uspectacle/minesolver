@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core';
 import { KeyboardEvent } from 'react';
-import { restart, setEnableSolver, setMineNum, setSizeGrid } from '../redux/gameState/gameStateStore';
+import { restart, setcomputeProb, setMineNum, setSizeGrid } from '../redux/gameState/gameStateStore';
 import { useDispatch } from "react-redux";
 import { OnboardingButton } from './OnboardingButton';
 
@@ -40,7 +40,7 @@ export const Onboarding = ({
         <OnboardingButton fontSize="13vmin" content="💣" handleClick={() => dispatch(setMineNum(20/100))}/>
       </div>
       <div className={classes.container}>
-        <OnboardingButton content="🤖"handleClick={() => dispatch(setEnableSolver(false))}/>
+        <OnboardingButton content="🤖"handleClick={() => dispatch(setcomputeProb(false))}/>
         <OnboardingButton content="👌"handleClick={() => {dispatch(restart()); renderGrid();}}/>
       </div>
     </div >

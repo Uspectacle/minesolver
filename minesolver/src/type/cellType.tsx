@@ -10,6 +10,5 @@ export interface CellType {
     highlight: boolean;
     neighbours: number[];
     fontSize: number;
-    showProb: boolean;
 }
   

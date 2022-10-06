@@ -8,7 +8,7 @@ export interface GameStateState {
   isOver: boolean;
   sizeGrid: number;
   mineNum: number;
-  enableSolver: boolean;
+  computeProb: boolean;
 }
 
 const initialState = {
@@ -17,7 +17,7 @@ const initialState = {
   isOver: false,
   sizeGrid: 10,
   mineNum: 15/100,
-  enableSolver: false,
+  computeProb: false,
 };
 
 
@@ -34,13 +34,14 @@ export const {
   setIsOver,
   setSizeGrid,
   setMineNum,
-  setEnableSolver,
+  setcomputeProb,
   restart,
   gameOver,
   flag,
   dig,
   highlightNeighbours,
   clearHighlight,
+  neighboursCheck,
 } = gameStateSlice.actions;
 
 export default gameStateSlice.reducer;

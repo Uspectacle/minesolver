@@ -2,16 +2,18 @@ import { createStyles } from "@mantine/core";
 import { CellType } from "../type/cellType";
 import { MouseEventHandler } from 'react';
 import { useDispatch } from "react-redux";
-import { clearHighlight, dig, flag, highlightNeighbours } from "../redux/gameState/gameStateStore";
+import { clearHighlight, dig, flag, highlightNeighbours, neighboursCheck } from "../redux/gameState/gameStateStore";
 
 interface propsType {
   renderGrid: () => void,
   cell: CellType,
+  computeProb: boolean,
 }
   
 export const Cell = ({
   renderGrid,
   cell,
+  computeProb,
 }: propsType) => {
   
   const { classes } = useStyles();
@@ -56,7 +58,7 @@ export const Cell = ({
 
   const image = (
     cell.isFlag ? "🚩" : 
-    !cell.isShown ? (cell.showProb ? `${Math.floor(cell.prob*100)}%` : "") :
+    !cell.isShown ? (computeProb ? `${Math.floor(cell.prob*100)}%` : "") :
     cell.isMine ? "💣" : 
     String(cell.num)
   );
@@ -64,14 +66,13 @@ export const Cell = ({
 
   const leftClick = () => {
     if (cell.isFlag) return;
-    dispatch(dig({index: cell.index, neighbours: false}));
+    dispatch(cell.isShown ? neighboursCheck(cell.index) : dig(cell.index));
     renderGrid();
   };
   
   const rightClick: MouseEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
-    if (cell.isShown) return false;
-    dispatch(flag(cell.index));
+    dispatch(cell.isShown ? neighboursCheck(cell.index) : flag(cell.index));
     renderGrid();
     return false;
   };
@@ -93,7 +94,7 @@ export const Cell = ({
       onContextMenu={rightClick} 
       onMouseOver={mouseHover} 
       onMouseOut={mouseOut}
-      style={{backgroundColor: color, filter: `brightness(${brightness}%)`, color: fontColor, fontSize: `${cell.showProb && !cell.isShown? Math.floor(cell.fontSize/2) : cell.fontSize}vmin`}}>
+      style={{backgroundColor: color, filter: `brightness(${brightness}%)`, color: fontColor, fontSize: `${computeProb && !cell.isShown? Math.floor(cell.fontSize/2) : cell.fontSize}vmin`}}>
         {image}
     </div>
   )
