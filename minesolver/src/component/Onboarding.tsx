@@ -40,7 +40,7 @@ export const Onboarding = ({
         <OnboardingButton fontSize="13vmin" content="💣" handleClick={() => dispatch(setMineNum(20/100))}/>
       </div>
       <div className={classes.container}>
-        <OnboardingButton content="🤖"handleClick={() => dispatch(setcomputeProb(false))}/>
+        <OnboardingButton content="💣%" fontSize="7vmin" handleClick={() => dispatch(setcomputeProb(false))}/>
         <OnboardingButton content="👌"handleClick={() => {dispatch(restart()); renderGrid();}}/>
       </div>
     </div >

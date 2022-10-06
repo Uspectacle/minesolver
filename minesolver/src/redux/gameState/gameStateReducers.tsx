@@ -204,18 +204,9 @@ const flag = (
   state: GameStateState,
   value: { payload: number; type: string; },
 ) => {
-
-  if (state.isOver) {
-    restart(state);
-    return;
-  }
-
   const index = value.payload;
-  
   if (state.grid[index].isShown) return;
-
   state.grid[index].isFlag = !state.grid[index].isFlag;
-
   getProb(state);
 };
 
@@ -225,11 +216,6 @@ const dig = (
 ) => {
   const index = value.payload;
 
-  if (state.isOver) {
-      restart(state);
-      return;
-  }
-  
   if (state.grid[index].isFlag) return;
   if (state.grid[index].isShown) return;
 
@@ -282,11 +268,6 @@ const neighboursCheck = (
   state: GameStateState,
   value: { payload: number; type: string; },
 ) => {
-
-  if (state.isOver) {
-    restart(state);
-    return;
-  }
   const index = value.payload;
 
   if (!state.grid[index].isShown) return;

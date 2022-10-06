@@ -45,6 +45,7 @@ const useStyles = createStyles((theme) => ({
     textOverflow: "ellipsis",
     whiteSpace: "nowrap",
     backgroundColor: "#DCAB6B",
+    color: '#000000',
     '&:hover': {
         backgroundColor: theme.fn.darken("#DCAB6B", 0.1),
     }

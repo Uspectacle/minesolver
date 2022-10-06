@@ -2,18 +2,20 @@ import { createStyles } from "@mantine/core";
 import { CellType } from "../type/cellType";
 import { MouseEventHandler } from 'react';
 import { useDispatch } from "react-redux";
-import { clearHighlight, dig, flag, highlightNeighbours, neighboursCheck } from "../redux/gameState/gameStateStore";
+import { clearHighlight, dig, flag, highlightNeighbours, neighboursCheck, restart } from "../redux/gameState/gameStateStore";
 
 interface propsType {
   renderGrid: () => void,
   cell: CellType,
   computeProb: boolean,
+  isOver: boolean,
 }
   
 export const Cell = ({
   renderGrid,
   cell,
   computeProb,
+  isOver,
 }: propsType) => {
   
   const { classes } = useStyles();
@@ -65,6 +67,10 @@ export const Cell = ({
 
 
   const leftClick = () => {
+    if (isOver) {
+      dispatch(restart());
+      return;
+    }
     if (cell.isFlag) return;
     dispatch(cell.isShown ? neighboursCheck(cell.index) : dig(cell.index));
     renderGrid();
@@ -72,6 +78,10 @@ export const Cell = ({
   
   const rightClick: MouseEventHandler<HTMLDivElement> = (event) => {
     event.preventDefault();
+    if (isOver) {
+      dispatch(restart());
+      return;
+    }
     dispatch(cell.isShown ? neighboursCheck(cell.index) : flag(cell.index));
     renderGrid();
     return false;

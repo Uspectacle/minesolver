@@ -9,7 +9,7 @@ interface propsType {
 export const Grid = ({
   renderGrid,
 }: propsType) => {
-  const { sizeGrid, grid, computeProb } = useGameState();
+  const { sizeGrid, grid, computeProb, isOver } = useGameState();
   const { classes } = useStyles(sizeGrid);
 
   return (
@@ -22,6 +22,7 @@ export const Grid = ({
               renderGrid={renderGrid}
               cell={cell}
               computeProb={computeProb}
+              isOver={isOver}
               key={`cell-${index}`}
             />
           )
